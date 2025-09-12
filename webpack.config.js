@@ -3,12 +3,18 @@ const { ModuleFederationPlugin } = require('webpack').container;
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/index.tsx',
   mode: 'development',
   devServer: {
+  //   static: {
+  //   directory: require('path').join(__dirname, 'public'),
+  //   serveIndex: false,         // avoid serve-index and the URIError
+  // },
     static: path.join(__dirname, 'dist'),
     port: 3000,
-    historyApiFallback: true,
+   historyApiFallback: true,
+    compress: true,
+    hot: true,
   },
   output: {
     publicPath: 'http://localhost:3000/',
@@ -31,7 +37,9 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: 'host',
-      remotes: {},
+      remotes: {
+        
+      },
       shared: {
         react: { singleton: true, eager: true },
         'react-dom': { singleton: true, eager: true },
