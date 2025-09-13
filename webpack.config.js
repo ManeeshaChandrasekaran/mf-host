@@ -8,7 +8,7 @@ module.exports = {
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),
-      serveIndex: false,         // avoid serve-index and the URIError
+      serveIndex: false,        
     },
     port: 3000,
     historyApiFallback: true,
@@ -42,14 +42,16 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'host',
       remotes: {
-        auth_app: 'auth_app@http://localhost:3001/remoteEntry.js',
-        booking_app: 'booking_app@http://localhost:3002/remoteEntry.js',
-        reporting_app: 'reporting_app@http://localhost:3003/remoteEntry.js',
+      },
+       exposes: {
+        './store': './src/store/index', 
       },
       shared: {
         react: { singleton: true, eager: true },
         'react-dom': { singleton: true, eager: true },
         'react-router-dom': { singleton: true, eager: true },
+        '@reduxjs/toolkit': { singleton: true },
+        'react-redux': { singleton: true },
       },
     }),
     new HtmlWebpackPlugin({
