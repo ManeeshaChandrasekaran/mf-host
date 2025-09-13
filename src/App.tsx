@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { loadRemoteComponent } from "./remoteLoader";
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy-load microfrontend components
 const Login = React.lazy(() => loadRemoteComponent("auth_app", "./Login"));
@@ -19,7 +20,7 @@ export default function App() {
         <Link to="/booking/new">New Booking</Link> |{" "}
         <Link to="/reports">Reports</Link>
       </nav>
-
+    <ErrorBoundary >
       <Suspense fallback={<div>Loading module...</div>}>
         <Routes>
           {/* Auth routes */}
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="*" element={<div>Welcome to the Host App</div>} />
         </Routes>
       </Suspense>
+      </ErrorBoundary>
     </Router>
   );
 }

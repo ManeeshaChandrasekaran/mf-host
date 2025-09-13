@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { loadRemotes } from "./loadRemotes";
 
+
 // Function to render the app
 const renderApp = () => {
   const container = document.getElementById("root");
